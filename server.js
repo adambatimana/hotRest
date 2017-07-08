@@ -23,8 +23,19 @@ app.use(bodyParser.json({
 //             jQuery
 // ====================================
 
-//create object from jquery to PUSH INTO object arrays
-
+// //create new tables takes in json input
+// app.post("/api/new", function(req, res) {
+//   // req.body hosts is equal to the JSON post sent from the user
+//   var newTable = req.body;
+//
+//   console.log(newTable);
+//
+//   // We then add the json the user sent to the character array
+//   tables.push(newTable);
+//
+//   // We then display the JSON to the users
+//   res.json(newTable);
+// });
 //GET information from frontend to put into array for tables
 let tables = [
   {
@@ -37,45 +48,41 @@ let tables = [
 
 
 //GET information from frontend to put into array for the waitlist
-let waitList = [{}];
+let waitList = [{
+  name: "Adam",
+  phone:"808-888-8888",
+  email: "adam@gmail.com",
+  id: "adamTable"
+}];
 
 
 // ====================================
 //             ROUTING
 // ====================================
 
-app.get("/api/:tables?", function(req, res) {
-  let newTable = req.params.tables;
-    return res.json(newTable)
-});
-
-// app.get("/api/tables", function(req, res) {
-//   let newTable = req.params.tables;
-//   res.json(newTable)
-// });
 
 app.get("/", function(req, res) {
-  res.send("THIS IS THE HOMEPAGE!")
-  // res.sendFile(path.join(__dirname, "index.html"));
+  // res.send("THIS IS THE HOMEPAGE!")
+  res.sendFile(path.join(__dirname, "index.html"));
 });
 
 app.get("/tables", function(req, res) {
-  res.send("THIS IS THE TABLES PAGE!")
-
-  // res.sendFile(path.join(__dirname, "index.html"));
+  // res.send("THIS IS THE TABLES PAGE!")
+  res.sendFile(path.join(__dirname, "tables.html"));
 });
 
 app.get("/reserve", function(req, res) {
-  res.send("THIS IS THE Reservation page!")
-
-  // res.sendFile(path.join(__dirname, "index.html"));
+  // res.send("THIS IS THE Reservation page!")
+  res.sendFile(path.join(__dirname, "reserve.html"));
 });
 
+app.get("/api/tables", function(req, res) {
+  res.json(tables)
+});
 
-
-// app.get("/api/waitlist", function(req, res) {
-//   res.json();
-// });
+app.get("/api/waitlist", function(req, res) {
+  res.json(waitList);
+});
 
 
 // ====================================
@@ -104,17 +111,6 @@ app.get("/reserve", function(req, res) {
 //
 //   res.json();
 // });
-
-
-
-
-
-
-
-
-
-
-
 
 
 // Starts the server to begin listening

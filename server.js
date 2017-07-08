@@ -26,7 +26,14 @@ app.use(bodyParser.json({
 //create object from jquery to PUSH INTO object arrays
 
 //GET information from frontend to put into array for tables
-let tables = [{}];
+let tables = [
+  {
+  name: "Adam",
+  phone:"808-888-8888",
+  email: "adam@gmail.com",
+  id: "adamTable"
+  }
+];
 
 
 //GET information from frontend to put into array for the waitlist
@@ -36,6 +43,17 @@ let waitList = [{}];
 // ====================================
 //             ROUTING
 // ====================================
+
+app.get("/api/:tables?", function(req, res) {
+  let newTable = req.params.tables;
+    return res.json(newTable)
+});
+
+// app.get("/api/tables", function(req, res) {
+//   let newTable = req.params.tables;
+//   res.json(newTable)
+// });
+
 app.get("/", function(req, res) {
   res.send("THIS IS THE HOMEPAGE!")
   // res.sendFile(path.join(__dirname, "index.html"));
@@ -53,9 +71,7 @@ app.get("/reserve", function(req, res) {
   // res.sendFile(path.join(__dirname, "index.html"));
 });
 
-// app.get("/api/tables", function(req, res) {
-//   res.json();
-// });
+
 
 // app.get("/api/waitlist", function(req, res) {
 //   res.json();

@@ -19,41 +19,14 @@ app.use(bodyParser.json({
   type: "application/vnd.api+json"
 }));
 
-// ====================================
-//             jQuery
-// ====================================
 
-// //create new tables takes in json input
-// app.post("/api/new", function(req, res) {
-//   // req.body hosts is equal to the JSON post sent from the user
-//   var newTable = req.body;
-//
-//   console.log(newTable);
-//
-//   // We then add the json the user sent to the character array
-//   tables.push(newTable);
-//
-//   // We then display the JSON to the users
-//   res.json(newTable);
-// });
+
 //GET information from frontend to put into array for tables
-let tables = [
-  {
-  name: "Adam",
-  phone:"808-888-8888",
-  email: "adam@gmail.com",
-  id: "adamTable"
-  }
-];
+let tables = [];
 
 
 //GET information from frontend to put into array for the waitlist
-let waitList = [{
-  name: "Adam",
-  phone:"808-888-8888",
-  email: "adam@gmail.com",
-  id: "adamTable"
-}];
+let waitList = [];
 
 
 // ====================================
@@ -86,31 +59,38 @@ app.get("/api/waitlist", function(req, res) {
 
 
 // ====================================
-//             GET REQUEST
-// ====================================
-
-// app.get("/api/:characters?", function(req, res) {
-//   var chosen = req.params.characters;
-//
-//   return res.json();
-// });
-
-
-// ====================================
 //            POST REQUEST
 // ====================================
 
-// app.post("/api/new", function(req, res) {
-//
-//   var newTable = req.body;
-//
-//   console.log(newTable);
-//
-//   "table".push();
-//
-//
-//   res.json();
-// });
+app.post("/api/tables", function(req, res) {
+
+  let newTable = req.body;
+  console.log(newTable);
+  // ====================================
+  //            LOGIC
+  // ====================================
+  //if newtables get to 5 send tables to waitlist
+  if (tables.length < 5) {
+      tables.push(newTable);
+  }else{
+      waitList.push(newTable)
+      console.log(waitList);
+  }
+  res.json(newTable);
+});
+
+app.post("/api/waitlist", function(req, res) {
+
+  let addToWait = req.body;
+
+  console.log(addToWait);
+
+  waitList.push(addToWait);
+
+  res.json(addToWait);
+
+
+});
 
 
 // Starts the server to begin listening

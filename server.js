@@ -34,30 +34,60 @@ let waitList = [];
 // ====================================
 
 
-app.get("/", function(req, res) {
-  // res.send("THIS IS THE HOMEPAGE!")
-  res.sendFile(path.join(__dirname, "index.html"));
-});
+// app.get("/", function(req, res) {
+//   // res.send("THIS IS THE HOMEPAGE!")
+//   res.sendFile(path.join(__dirname, "index.html"));
+// });
+//
+// app.get("/tables", function(req, res) {
+//   // res.send("THIS IS THE TABLES PAGE!")
+//   res.sendFile(path.join(__dirname, "tables.html"));
+// });
+//
+// app.get("/reserve", function(req, res) {
+//   // res.send("THIS IS THE Reservation page!")
+//   res.sendFile(path.join(__dirname, "reserve.html"));
+// });
+//
+// app.get("/api/tables", function(req, res) {
+//   res.json(tables)
+// });
+//
+// app.get("/api/waitlist", function(req, res) {
+//   res.json(waitList);
+// });
 
-app.get("/tables", function(req, res) {
-  // res.send("THIS IS THE TABLES PAGE!")
-  res.sendFile(path.join(__dirname, "tables.html"));
-});
+app.get('/:endpoint?', function (req, res) {
+  switch (req.params.endpoint) {
+    case '/':
+    case undefined:
+      res.sendFile(path.join(__dirname, "index.html"));
+      break
+    case 'tables':
+      res.sendFile(path.join(__dirname, "tables.html"));
+      break
+    case 'reserve':
+      res.sendFile(path.join(__dirname, "reserve.html"));
+      break
+    default:
+      res.sendFile(path.join(__dirname, "404.html"));
+      break
+  }
+})
 
-app.get("/reserve", function(req, res) {
-  // res.send("THIS IS THE Reservation page!")
-  res.sendFile(path.join(__dirname, "reserve.html"));
-});
-
-app.get("/api/tables", function(req, res) {
-  res.json(tables)
-});
-
-app.get("/api/waitlist", function(req, res) {
-  res.json(waitList);
-});
-
-
+app.get("/api/:tables?", function(req,res){
+  switch(req.params){
+    case '/tables':
+      res.json(tables)
+      break
+    case '/waitlist':
+          res.json(waitList);
+      break
+    default:
+        res.sendFile(path.join(__dirname, "404.html"));
+    break
+  }
+})
 // ====================================
 //            POST REQUEST
 // ====================================
